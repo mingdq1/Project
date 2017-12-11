@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cst2335group.project.PkgM.Main_Page">
+    <item
+        android:id="@+id/action_tracker"
+        android:orderInCategory="1"
+        android:title="@string/action_tracker"
+        android:icon="@drawable/ic_action_tracker_white"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_food"
+        android:orderInCategory="2"
+        android:title="@string/action_food"
+        android:icon="@drawable/ic_action_food_white"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_house"
+        android:orderInCategory="3"
+        android:title="@string/action_house"
+        android:icon="@drawable/ic_action_house_white"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_auto"
+        android:orderInCategory="4"
+        android:title="@string/action_auto"
+        android:icon="@drawable/ic_action_auto_white"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Project</string>
+    <string name="action_tracker">Activity Tracker</string>
+    <string name="action_food">Food Information Tracker</string>
+    <string name="action_house">House Thermostat</string>
+    <string name="action_auto">Automobile</string>
+</resources>
