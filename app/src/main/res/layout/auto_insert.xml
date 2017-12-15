@@ -24,6 +24,8 @@
             android:text="@string/litres" />
 
         <EditText
+            android:inputType="number"
+            android:id="@+id/editText_litres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
@@ -42,6 +44,8 @@
             android:text="@string/price" />
 
         <EditText
+            android:inputType="number"
+            android:id="@+id/editText_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
@@ -60,6 +64,8 @@
             android:text="@string/kilometers" />
 
         <EditText
+            android:inputType="number"
+            android:id="@+id/editText_kilometers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
@@ -78,6 +84,7 @@
             android:text="@string/date" />
 
         <EditText
+            android:id="@+id/editText_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical" />
@@ -95,13 +102,15 @@
             android:layout_weight="1"/>
 
         <Button
-            android:text="Save"
+            android:text="@string/autoSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="Save"
             android:layout_marginEnd="16dp"/>
 
         <Button
-            android:text="Cancel"
+            android:text="@string/autoCancel"
+            android:onClick="Cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

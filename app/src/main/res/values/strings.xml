@@ -11,4 +11,8 @@
     <string name="money">CAD</string>
     <string name="litres_unit">L</string>
     <string name="km">KM</string>
+    <string name="empty">Please fill the blank</string>
+    <string name="autoSave">Save</string>
+    <string name="autoCancel">Cancel</string>
+    <string name="autoDelete">Delete</string>
 </resources>

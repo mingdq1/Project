@@ -3,10 +3,13 @@ package cst2335group.project.PkgA;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,15 +23,22 @@ public class A_Main extends Activity {
     private ListView listView;
     private ArrayList<AutoInfo> arrayList;
     private AutoAdapter adapter;
+    private A_DatabaseHelper databaseHelper;
 
     private class AutoInfo {
         private String litres, price, kilometers, date;
+        private int id;
 
-        public AutoInfo(String litres, String price, String kilometers, String date) {
+        public AutoInfo(int id, String litres, String price, String kilometers, String date) {
+            this.id = id;
             this.litres = litres;
             this.price = price;
             this.kilometers = kilometers;
             this.date = date;
+        }
+
+        public int getId() {
+            return id;
         }
 
         public String getLitres() {
@@ -81,13 +91,86 @@ public class A_Main extends Activity {
 
         arrayList = new ArrayList<>();
         listView = findViewById(R.id.auto_listView);
-        adapter = new AutoAdapter(this,arrayList);
+        adapter = new AutoAdapter(this, arrayList);
         listView.setAdapter(adapter);
-        
+        databaseHelper = new A_DatabaseHelper(this);
+
+        databaseHelper.openDatabase();
+        readDatabase();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(A_Main.this, A_Update.class);
+                AutoInfo autoInfo = (AutoInfo) adapterView.getItemAtPosition(i);
+                String id = autoInfo.getId() + "";
+                String litres = autoInfo.getLitres();
+                String price = autoInfo.getPrice();
+                String kilometers = autoInfo.getKilometers();
+                String date = autoInfo.getDate();
+
+                intent.putExtra("id", id);
+                intent.putExtra("litres", litres);
+                intent.putExtra("price", price);
+                intent.putExtra("kilometers", kilometers);
+                intent.putExtra("date", date);
+
+                startActivityForResult(intent, 2);
+            }
+        });
     }
 
     public void auto_add(View view) {
         Intent intent = new Intent(A_Main.this, A_Insert.class);
         startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        databaseHelper.closeDatabase();
+    }
+
+    private void readDatabase() {
+        arrayList.clear();
+        Cursor cursor = databaseHelper.read();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            arrayList.add(new AutoInfo(cursor.getInt(cursor.getColumnIndex(databaseHelper.COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_LITRES)),
+                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_PRICE)),
+                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_KM)),
+                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_DATE))));
+        }
+        adapter.notifyDataSetChanged();
+        ;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == 1) {
+            String litres = data.getStringExtra("litres");
+            String price = data.getStringExtra("price");
+            String kilometers = data.getStringExtra("kilometers");
+            String date = data.getStringExtra("date");
+            databaseHelper.insert(litres, price, kilometers, date);
+        }
+
+        if (resultCode == 2) {
+            String litres = data.getStringExtra("litres");
+            String price = data.getStringExtra("price");
+            String kilometers = data.getStringExtra("kilometers");
+            String date = data.getStringExtra("date");
+            String id = data.getStringExtra("id");
+            databaseHelper.update(id, litres, price, kilometers, date);
+        }
+
+        if (resultCode == 3) {
+            String id = data.getStringExtra("id");
+            databaseHelper.delete(id);
+        }
+
+        readDatabase();
     }
 }
