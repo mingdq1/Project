@@ -15,4 +15,12 @@
     <string name="autoSave">Save</string>
     <string name="autoCancel">Cancel</string>
     <string name="autoDelete">Delete</string>
+    <string name="insert_done">Insert Successful</string>
+    <string name="update_done">Update Successful</string>
+    <string name="delete_done">Delete Successful</string>
+    <string name="delete_dialog_message">Are you sure you want delete it?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="last_avg_price">Last Month Avg Price</string>
+    <string name="last_total_liters">Last Month Total Liters</string>
 </resources>

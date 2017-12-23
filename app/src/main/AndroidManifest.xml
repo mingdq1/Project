@@ -24,7 +24,8 @@
         <activity android:name=".PkgH.H_Main" />
         <activity android:name=".PkgT.T_Main" />
         <activity android:name=".PkgA.A_Insert" />
-        <activity android:name=".PkgA.A_Update"></activity>
+        <activity android:name=".PkgA.A_Update" />
+        <activity android:name=".PkgA.A_Dashboard"></activity>
     </application>
 
 </manifest>

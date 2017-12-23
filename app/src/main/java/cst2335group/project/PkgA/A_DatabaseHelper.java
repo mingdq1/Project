@@ -23,7 +23,6 @@ public class A_DatabaseHelper extends SQLiteOpenHelper {
     public SQLiteDatabase database;
 
 
-
     private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             COLUMN_LITRES + " TEXT, " +
@@ -86,4 +85,21 @@ public class A_DatabaseHelper extends SQLiteOpenHelper {
         return database.query(TABLE_NAME, null, null, null, null, null, null);
     }
 
+    public String getLastAvgPrice(String date) {
+        String text = "";
+        Cursor cur = database.rawQuery("SELECT AVG(" + COLUMN_PRICE + ") FROM " + TABLE_NAME + " WHERE " + COLUMN_DATE + " LIKE '%" + date + "%'", null);
+        if (cur.moveToFirst()) {
+            text = cur.getString(0);
+        }
+        return text;
+    }
+
+    public String getLastTotalLitres(String date) {
+        String text = "";
+        Cursor cur = database.rawQuery("SELECT SUM(" + COLUMN_LITRES + ") FROM " + TABLE_NAME + " WHERE " + COLUMN_DATE + " LIKE '%" + date + "%'", null);
+        if (cur.moveToFirst()) {
+            text = cur.getString(0);
+        }
+        return text;
+    }
 }

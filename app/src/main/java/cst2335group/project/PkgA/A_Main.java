@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,6 +29,15 @@ public class A_Main extends Activity {
     private ArrayList<AutoInfo> arrayList;
     private AutoAdapter adapter;
     private A_DatabaseHelper databaseHelper;
+    private ReadAuto readAuto;
+
+    public void dashboard(View view) {
+        Intent intent = new Intent(A_Main.this,A_Dashboard.class);
+        startActivity(intent);
+    }
+//    private ProgressBar progressBar;
+//    private LinearLayout layout_progressBar;
+
 
     private class AutoInfo {
         private String litres, price, kilometers, date;
@@ -89,6 +103,8 @@ public class A_Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auto_main);
 
+//        progressBar = findViewById(R.id.progressBar);
+//        layout_progressBar = findViewById(R.id.layout_progressBar);
         arrayList = new ArrayList<>();
         listView = findViewById(R.id.auto_listView);
         adapter = new AutoAdapter(this, arrayList);
@@ -96,7 +112,6 @@ public class A_Main extends Activity {
         databaseHelper = new A_DatabaseHelper(this);
 
         databaseHelper.openDatabase();
-        readDatabase();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,23 +141,20 @@ public class A_Main extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        readDatabase();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         databaseHelper.closeDatabase();
     }
 
     private void readDatabase() {
-        arrayList.clear();
-        Cursor cursor = databaseHelper.read();
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            arrayList.add(new AutoInfo(cursor.getInt(cursor.getColumnIndex(databaseHelper.COLUMN_ID)),
-                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_LITRES)),
-                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_PRICE)),
-                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_KM)),
-                    cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_DATE))));
-        }
-        adapter.notifyDataSetChanged();
-        ;
+        readAuto = new ReadAuto();
+        readAuto.execute(arrayList);
     }
 
     @Override
@@ -155,6 +167,7 @@ public class A_Main extends Activity {
             String kilometers = data.getStringExtra("kilometers");
             String date = data.getStringExtra("date");
             databaseHelper.insert(litres, price, kilometers, date);
+            Snackbar.make(this.findViewById(R.id.auto_listView), R.string.insert_done, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
 
         if (resultCode == 2) {
@@ -164,13 +177,46 @@ public class A_Main extends Activity {
             String date = data.getStringExtra("date");
             String id = data.getStringExtra("id");
             databaseHelper.update(id, litres, price, kilometers, date);
+            Snackbar.make(this.findViewById(R.id.auto_listView), R.string.update_done, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
 
         if (resultCode == 3) {
             String id = data.getStringExtra("id");
             databaseHelper.delete(id);
+            Snackbar.make(this.findViewById(R.id.auto_listView), R.string.delete_done, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
 
-        readDatabase();
+    }
+
+    public class ReadAuto extends AsyncTask<ArrayList<AutoInfo>, Integer, ArrayList<AutoInfo>> {
+
+        @Override
+        protected ArrayList<AutoInfo> doInBackground(ArrayList<AutoInfo>[] arrayLists) {
+
+            // Use try catch to avoid crash when rotation
+            try {
+                Cursor cursor = databaseHelper.read();
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    arrayLists[0].add(new AutoInfo(cursor.getInt(cursor.getColumnIndex(databaseHelper.COLUMN_ID)),
+                            cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_LITRES)),
+                            cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_PRICE)),
+                            cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_KM)),
+                            cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_DATE))));
+                }
+            } catch (Exception ex) {
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            arrayList.clear();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<AutoInfo> autoInfos) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }
