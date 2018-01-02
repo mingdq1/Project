@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textColor="#000000"
+        android:id="@+id/item_name"
+        android:text="LAYS"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/colorAccent"
+        android:textSize="14dp"
+        android:text="05-12-2012   (11: 53 : 00)  "
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/item_dateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <TextView
+        android:id="@+id/item_calories"
+        android:layout_below="@+id/item_name"
+        android:text="Calories : 23 "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/item_calories"
+        android:id="@+id/item_fats"
+        android:layout_below="@+id/item_name"
+        android:text="Fats : 23% "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/item_fats"
+        android:id="@+id/item_carbs"
+        android:layout_below="@+id/item_name"
+        android:text="Carbs : 23mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

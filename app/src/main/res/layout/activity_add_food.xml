@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_height="match_parent"
+    tools:context="cst2335group.project.PkgF.AddFoodActivity">
+
+    <EditText
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:hint="Food Name"
+        android:id="@+id/food_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/food_calories"
+        android:inputType="numberDecimal"
+        android:hint="Food Calories"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/food_fats"
+        android:inputType="numberDecimal"
+        android:hint="Food Fats"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/food_carbs"
+        android:inputType="numberDecimal"
+        android:hint="Food Carbohydrates"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Button
+        android:onClick="addFoodClick"
+        android:id="@+id/add_food_btn"
+        android:layout_marginTop="8dp"
+        android:textColor="#FFFFFF"
+        android:text="Save Food"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+
+
+</LinearLayout>

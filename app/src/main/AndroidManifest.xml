@@ -20,12 +20,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".PkgA.A_Main" />
-        <activity android:name=".PkgF.F_Main" />
         <activity android:name=".PkgH.H_Main" />
         <activity android:name=".PkgT.T_Main" />
         <activity android:name=".PkgA.A_Insert" />
         <activity android:name=".PkgA.A_Update" />
-        <activity android:name=".PkgA.A_Dashboard"></activity>
+        <activity android:name=".PkgA.A_Dashboard"/>
+        <activity
+            android:name=".PkgF.F_Main"
+            android:label="List of Food Items"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PkgF.AddFoodActivity"
+            android:label="Add Food Item" />
+        <activity android:name=".PkgF.StatsActivity"
+            android:label="Daily Calories In-Take"
+            ></activity>
     </application>
 
 </manifest>

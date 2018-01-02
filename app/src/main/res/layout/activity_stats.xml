@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="cst2335group.project.PkgF.StatsActivity">
+
+
+    <ListView
+        android:layout_weight="0.9"
+        android:id="@+id/stats_lv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"></ListView>
+
+<RelativeLayout
+    android:background="@color/colorPrimaryDark"
+    android:layout_weight="0.1"
+    android:layout_width="match_parent"
+    android:layout_height="0dp">
+
+    <TextView
+        android:id="@+id/total"
+        android:textSize="23dp"
+        android:layout_centerInParent="true"
+        android:text="Ttl Avg = 230"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
+</LinearLayout>
